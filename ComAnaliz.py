@@ -1,6 +1,12 @@
 import pandas as pd
 import random
 
+from pyexpat import features
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+
+
 
 # подключение файла№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
 data= pd.read_csv("./Data/labeled.csv", sep=",")
@@ -33,7 +39,7 @@ print("\n=====================================\n")
 
 #Функция токенизации№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
 
-def tokenize_advanced(text):
+def tokenize(text):
 
     text = text.lower()
 
@@ -87,11 +93,11 @@ def tokenize_advanced(text):
 
 random.seed()
 print("Токенезированный случайный коммент")
-print(tokenize_advanced(data[data["toxic"] == 0].iloc[random.randint(0,500)]['comment']))
+print(tokenize(data[data["toxic"] == 0].iloc[random.randint(0,500)]['comment']))
 print("\n=====================================\n")
 
 #Векторизация
-
+vectorizer=TfidfVectorizer(tokenizer=lambda  x:tokenize(x))
 
 #Создание и обучение модели
 
